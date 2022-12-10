@@ -1,7 +1,6 @@
-import Head from 'next/head'
+import { GetServerSideProps } from 'next';
 import RedirectForm from '../components/Form'
 import Header from '../components/Header'
-import { Low, JSONFile } from 'lowdb'
 import {IDBData} from '../types/IDbData';
 
 export default function Home({ redirects, keys }: IDBData) {
@@ -15,7 +14,7 @@ export default function Home({ redirects, keys }: IDBData) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/manage`, {method: 'GET'});
   const db: IDBData = await res.json();
   return {
